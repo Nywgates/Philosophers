@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:44:46 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/20 15:36:49 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/20 15:53:16 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		parse(t_data *data, char **str, int argc)
 	data->time_to_eat = ft_atoi(str[3]);
 	data->time_to_sleep = ft_atoi(str[4]);
 	data->time = get_time(0);
+	data->p_ate = 0;
 	sem_unlink("std_out");
 	data->std_out = sem_open("std_out", O_CREAT, 0666, 1);
 	data->eat = malloc(sizeof(sem_t *) * (data->number_philo));
@@ -70,12 +71,15 @@ void		*begin(void *arg)
 	philo->last_eat = philo->data->time;
 	while (1)
 	{
-		gest_inf(3, philo, 0);
-		ft_eat(philo);
-		if (philo->eat)
-			exit(1);
-		gest_inf(2, philo, 0);
-		usleep(philo->data->time_to_sleep * 1000);
+		if (!philo->eat)
+		{
+			gest_inf(3, philo, 0);
+			ft_eat(philo);
+			gest_inf(2, philo, 0);
+			usleep(philo->data->time_to_sleep * 1000);
+		}
+		else if (philo->data->p_ate)
+			exit(0);
 	}
 	exit(0);
 	return (NULL);
@@ -99,6 +103,7 @@ void		*monitor(void *arg)
 		if (philo->m_eat == philo->data->t_philo_must_eat)
 		{
 			philo->eat = 1;
+			philo->data->p_ate++;
 			gest_inf(5, philo, 0);
 			break ;
 		}

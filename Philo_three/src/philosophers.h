@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:57:10 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/20 13:34:52 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/20 15:47:53 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct		s_data
 	sem_t			*std_out;
 	sem_t			**eat;
 	int				died;
+	int				p_ate;
 }					t_data;
 
 typedef struct		s_d_philo
