@@ -6,11 +6,11 @@
 #    By: laballea <laballea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 15:19:20 by laballea          #+#    #+#              #
-#    Updated: 2020/09/23 10:28:25 by laballea         ###   ########.fr        #
+#    Updated: 2021/01/20 13:49:04 by laballea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 
 SRC = src/buf_utils.c src/ft_utils.c src/ft_utils2.c src/main.c
 
@@ -18,11 +18,18 @@ INCLUDE = src/Philosophers.h
 
 OBJ = $(subst .c,.o,$(SRC))
 
-all: ${OBJ}
-	gcc -pthread -lm $(SRC) -o philo_one
+NAME = philo_two
+
+$(NAME): ${OBJ} ${INCLUDE} ${SRC}
+	gcc ${CFLAGS} -pthread -lm $(SRC) -o $(NAME)
+
+all: ${NAME}
 
 clean:
 	/bin/rm -f ${OBJ}
+
+fclean: clean
+	rm -rf $(NAME)
 
 re: all bonus
 

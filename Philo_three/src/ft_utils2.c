@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:45:33 by laballea          #+#    #+#             */
-/*   Updated: 2020/09/23 10:14:36 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/20 15:33:54 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,21 @@ void		wait_child(t_d_philo **lst_struct, int n_philo)
 		if (waitpid(-1, &status, 0) < 0 || WIFEXITED(status))
 		{
 			i = -1;
-			while (++i < n_philo)
-				kill(lst_struct[i]->pid, SIGINT);
+			if (WEXITSTATUS(status) == 0)
+			{
+				while (++i < n_philo)
+					kill(lst_struct[i]->pid, SIGINT);
+			}
 			exit(WEXITSTATUS(status));
 		}
 	}
 }
 
-void		init_philo(t_data data, sem_t *forks,
-			pthread_t *id, pthread_t *id_mono)
+void		init_philo(t_data data, sem_t *forks)
 {
 	int			i;
 	t_d_philo	**lst_struct;
 	int			dead;
-	int			state;
-	int dt;
 
 	dead = 0;
 	lst_struct = malloc(sizeof(t_d_philo **) * data.number_philo);
@@ -51,7 +51,6 @@ void		init_philo(t_data data, sem_t *forks,
 			begin(lst_struct[i]);
 		i++;
 	}
-	i = 0;
 	wait_child(lst_struct, data.number_philo);
 }
 
