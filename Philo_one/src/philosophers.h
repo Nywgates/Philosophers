@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:57:10 by laballea          #+#    #+#             */
-/*   Updated: 2020/09/17 09:11:00 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/20 13:24:17 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_data
 	int				t_philo_must_eat;
 	long			time;
 	pthread_mutex_t std_out;
+	pthread_mutex_t *mutex_eat;
 }					t_data;
 
 typedef struct		s_d_philo
@@ -44,15 +45,14 @@ void				ft_putstr_fd(char *s, int fd);
 int					ft_atoi(const char *str);
 t_d_philo			*ft_lstnew(int id, t_data *data,
 					pthread_mutex_t **fork, int *dead);
-void				gest_inf(long time, int index, t_d_philo *philo);
+void				gest_inf(int index, t_d_philo *philo, int died);
 long				get_time();
 size_t				ft_strlen(const char *s);
 void				ft_putstr_fd(char *s, int fd);
 void				str_buf(char *result, char *s, int *index);
 void				init_philo(t_data data, pthread_mutex_t *fork,
 					pthread_t *id, pthread_t *id_mono);
-void				init_mutex(pthread_mutex_t *fork,
-					pthread_mutex_t *mutex, t_data data);
+void				init_mutex(pthread_mutex_t *fork, t_data data);
 int					ft_error(char *str, int i);
 long				get_time(long begin);
 void				*monitor(void *arg);

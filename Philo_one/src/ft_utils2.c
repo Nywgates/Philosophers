@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:45:33 by laballea          #+#    #+#             */
-/*   Updated: 2020/09/17 09:09:40 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/20 12:53:47 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void		init_philo(t_data data, pthread_mutex_t *fork,
 	{
 		pthread_join(id[i], NULL);
 		pthread_join(id_mono[i], NULL);
+		free(lst_struct[i]);
 		i++;
 	}
 }
 
-void		init_mutex(pthread_mutex_t *fork,
-			pthread_mutex_t *mutex, t_data data)
+void		init_mutex(pthread_mutex_t *fork, t_data data)
 {
 	int i;
 
@@ -48,7 +48,7 @@ void		init_mutex(pthread_mutex_t *fork,
 	while (i < data.number_philo)
 	{
 		pthread_mutex_init(&fork[i], NULL);
-		pthread_mutex_init(&mutex[i], NULL);
+		pthread_mutex_init(&data.mutex_eat[i], NULL);
 		i++;
 	}
 }

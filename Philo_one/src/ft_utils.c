@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:49:51 by laballea          #+#    #+#             */
-/*   Updated: 2020/09/17 09:09:51 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/20 13:24:42 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,12 @@ void		print_inf(long time, char *str, int id)
 	write(1, result, i);
 }
 
-void		gest_inf(long time, int index, t_d_philo *philo)
+void		gest_inf(int index, t_d_philo *philo, int died)
 {
+	long time;
+
 	pthread_mutex_lock(&philo->data->std_out);
+	time = get_time(philo->data->time);
 	if (index == 0)
 		print_inf(time, " as taken a fork\n", philo->id);
 	else if (index == 1)
@@ -57,7 +60,8 @@ void		gest_inf(long time, int index, t_d_philo *philo)
 		print_inf(time, " died\n", philo->id);
 	else if (index == 5)
 		print_inf(time, " eat enought\n", philo->id);
-	pthread_mutex_unlock(&philo->data->std_out);
+	if (!died)
+		pthread_mutex_unlock(&philo->data->std_out);
 }
 
 t_d_philo	*ft_lstnew(int id, t_data *data, pthread_mutex_t **fork, int *dead)
