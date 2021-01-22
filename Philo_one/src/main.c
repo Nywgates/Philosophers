@@ -12,6 +12,14 @@
 
 #include "philosophers.h"
 
+void ft_usleep(float time) {
+	int i;
+
+	i = 0;
+	while (i < 1000)
+		usleep(time);
+}
+
 void		parse(t_data *data, char **str, int argc)
 {
 	data->number_philo = ft_atoi(str[1]);
@@ -46,13 +54,6 @@ int			ft_eat(t_d_philo *philo)
 	return (0);
 }
 
-void ft_usleep(float time) {
-	int i;
-
-	i = 0;
-	while (i < 1000)
-		usleep(time);
-}
 
 void		*begin(void *arg)
 {
