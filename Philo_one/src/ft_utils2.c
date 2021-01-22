@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:45:33 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/20 12:53:47 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/22 15:32:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,20 @@ long		get_time(long begin)
 		return (time);
 	else
 		return (time - begin);
+}
+
+void		ft_usleep(long n)
+{
+	struct timeval	start;
+	struct timeval	current;
+
+	gettimeofday(&start, NULL);
+	while (1)
+	{
+		usleep(50);
+		gettimeofday(&current, NULL);
+		if ((current.tv_sec - start.tv_sec) * 1000000 +
+			(current.tv_usec - start.tv_usec) > n)
+			break ;
+	}
 }

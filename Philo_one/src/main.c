@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:44:46 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/20 14:13:28 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/22 15:29:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			ft_eat(t_d_philo *philo)
 	pthread_mutex_lock(&philo->data->mutex_eat[philo->id]);
 	philo->m_eat++;
 	philo->last_eat = get_time(philo->data->time);
-	usleep(philo->data->time_to_eat * 1000);
+	ft_usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(&philo->data->mutex_eat[philo->id]);
 	pthread_mutex_unlock(&philo->fork[(philo->id + 1)
 	% philo->data->number_philo]);
@@ -61,7 +61,7 @@ void		*begin(void *arg)
 		if (philo->eat)
 			break ;
 		gest_inf(2, philo, 0);
-		usleep(philo->data->time_to_sleep * 1000);
+		ft_usleep(philo->data->time_to_sleep * 1000);
 	}
 	return (NULL);
 }
