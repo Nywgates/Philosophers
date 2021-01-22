@@ -12,14 +12,6 @@
 
 #include "philosophers.h"
 
-void ft_usleep(float time) {
-	int i;
-
-	i = -1;
-	while (++i < 1000)
-		usleep(time);
-}
-
 void		parse(t_data *data, char **str, int argc)
 {
 	data->number_philo = ft_atoi(str[1]);
@@ -46,14 +38,13 @@ int			ft_eat(t_d_philo *philo)
 	pthread_mutex_lock(&philo->data->mutex_eat[philo->id]);
 	philo->m_eat++;
 	philo->last_eat = get_time(philo->data->time);
-	ft_usleep(philo->data->time_to_eat);
+	usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(&philo->data->mutex_eat[philo->id]);
 	pthread_mutex_unlock(&philo->fork[(philo->id + 1)
 	% philo->data->number_philo]);
 	pthread_mutex_unlock(&philo->fork[philo->id]);
 	return (0);
 }
-
 
 void		*begin(void *arg)
 {
@@ -70,7 +61,7 @@ void		*begin(void *arg)
 		if (philo->eat)
 			break ;
 		gest_inf(2, philo, 0);
-		ft_usleep(philo->data->time_to_sleep);
+		usleep(philo->data->time_to_sleep * 1000);
 	}
 	return (NULL);
 }
