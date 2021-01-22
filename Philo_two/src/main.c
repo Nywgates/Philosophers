@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:44:46 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 15:48:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/22 16:13:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		*begin(void *arg)
 	philo = (t_d_philo *)arg;
 	philo->eat = 0;
 	philo->m_eat = 0;
-	philo->last_eat = philo->data->time;
+	philo->last_eat = get_time(philo->data->time);
 	while (1)
 	{
 		gest_inf(3, philo, 0);
