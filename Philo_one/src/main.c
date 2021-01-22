@@ -38,7 +38,7 @@ int			ft_eat(t_d_philo *philo)
 	pthread_mutex_lock(&philo->data->mutex_eat[philo->id]);
 	philo->m_eat++;
 	philo->last_eat = get_time(philo->data->time);
-	usleep(philo->data->time_to_eat * 1000);
+	ft_usleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->data->mutex_eat[philo->id]);
 	pthread_mutex_unlock(&philo->fork[(philo->id + 1)
 	% philo->data->number_philo]);
