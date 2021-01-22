@@ -15,8 +15,8 @@
 void ft_usleep(float time) {
 	int i;
 
-	i = 0;
-	while (i < 1000)
+	i = -1;
+	while (++i < 1000)
 		usleep(time);
 }
 
