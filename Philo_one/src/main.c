@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:44:46 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 16:15:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/22 23:44:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int			ft_eat(t_d_philo *philo)
 	gest_inf(0, philo, 0);
 	gest_inf(1, philo, 0);
 	pthread_mutex_lock(&philo->data->mutex_eat[philo->id]);
-	philo->m_eat++;
 	philo->last_eat = get_time(philo->data->time);
 	ft_usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(&philo->data->mutex_eat[philo->id]);
+	philo->m_eat++;
 	pthread_mutex_unlock(&philo->fork[(philo->id + 1)
 	% philo->data->number_philo]);
 	pthread_mutex_unlock(&philo->fork[philo->id]);
@@ -66,7 +66,42 @@ void		*begin(void *arg)
 	return (NULL);
 }
 
-void		*monitor(void *arg)
+void		*monitor_test(t_d_philo **philos, t_data data)
+{
+	int dead;
+	int i;
+	t_d_philo *philo;
+
+	dead = 0;
+	while (!dead)
+	{
+		i = 0;
+		while (i < data.number_philo)
+		{
+			philo = philos[i];
+			if (get_time(data.time) - philo->last_eat
+				> data.time_to_die)
+			{
+				pthread_mutex_lock(&data.mutex_eat[philo->id]);
+				gest_inf(4, philo, 1);
+				exit(0);
+				dead = 1;
+				pthread_mutex_unlock(&data.mutex_eat[philo->id]);
+			}
+			if (philo->m_eat == data.t_philo_must_eat)
+			{
+				philo->eat = 1;
+				gest_inf(5, philo, 0);
+				break ;
+			}
+		}
+		ft_usleep(50);
+	}
+	return (NULL);
+}
+
+
+/*void		*monitor(void *arg)
 {
 	t_d_philo *philo;
 
@@ -78,8 +113,8 @@ void		*monitor(void *arg)
 		{
 			pthread_mutex_lock(&philo->data->mutex_eat[philo->id]);
 			gest_inf(4, philo, 1);
-			pthread_mutex_unlock(&philo->data->mutex_eat[philo->id]);
 			exit(0);
+			pthread_mutex_unlock(&philo->data->mutex_eat[philo->id]);
 		}
 		if (philo->m_eat == philo->data->t_philo_must_eat)
 		{
@@ -87,26 +122,24 @@ void		*monitor(void *arg)
 			gest_inf(5, philo, 0);
 			break ;
 		}
+		usleep(50);
 	}
 	return (NULL);
-}
+}*/
 
 int			main(int argc, char **argv)
 {
 	t_data			data;
 	pthread_t		*id;
-	pthread_t		*id_mono;
 	pthread_mutex_t *fork;
 
 	if (argc < 5 || argc > 6)
 		return (ft_error("Not valid arguments.\n", 1));
 	parse(&data, argv, argc);
 	id = malloc(sizeof(pthread_t) * (data.number_philo));
-	id_mono = malloc(sizeof(pthread_t) * (data.number_philo));
 	fork = malloc(sizeof(pthread_mutex_t) * (data.number_philo));
 	init_mutex(fork, data);
-	init_philo(data, fork, id, id_mono);
+	init_philo(data, fork, id);
 	free(id);
-	free(id_mono);
 	free(fork);
 }

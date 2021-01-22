@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:57:10 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 15:28:47 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/22 23:42:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ size_t				ft_strlen(const char *s);
 void				ft_putstr_fd(char *s, int fd);
 void				str_buf(char *result, char *s, int *index);
 void				init_philo(t_data data, pthread_mutex_t *fork,
-					pthread_t *id, pthread_t *id_mono);
+					pthread_t *id);
 void				init_mutex(pthread_mutex_t *fork, t_data data);
 int					ft_error(char *str, int i);
 long				get_time(long begin);
 void				*monitor(void *arg);
 void				*begin(void *arg);
 void				ft_usleep(long n);
+void				*monitor_test(t_d_philo **philos, t_data data);
 #endif

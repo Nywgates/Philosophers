@@ -6,14 +6,14 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:45:33 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 16:07:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/22 23:42:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 void		init_philo(t_data data, pthread_mutex_t *fork,
-			pthread_t *id, pthread_t *id_mono)
+			pthread_t *id)
 {
 	int			i;
 	t_d_philo	**lst_struct;
@@ -26,15 +26,21 @@ void		init_philo(t_data data, pthread_mutex_t *fork,
 	{
 		lst_struct[i] = ft_lstnew(i, &data, &fork, &dead);
 		pthread_create(&id[i], NULL, begin, lst_struct[i]);
-		pthread_create(&id_mono[i], NULL, monitor, lst_struct[i]);
-		i++;
-		usleep(10);
+		i += 2;
 	}
+	usleep(1);
+	i = 1;
+	while (i < data.number_philo)
+	{
+		lst_struct[i] = ft_lstnew(i, &data, &fork, &dead);
+		pthread_create(&id[i], NULL, begin, lst_struct[i]);
+		i += 2;
+	}
+	monitor_test(lst_struct, data);
 	i = 0;
 	while (i < data.number_philo)
 	{
 		pthread_join(id[i], NULL);
-		pthread_join(id_mono[i], NULL);
 		free(lst_struct[i]);
 		i++;
 	}
