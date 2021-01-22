@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: laballea <laballea@student.42.fr>          +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 15:19:20 by laballea          #+#    #+#              #
-#    Updated: 2021/01/20 13:49:11 by laballea         ###   ########.fr        #
+#    Updated: 2021/01/22 15:02:17 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJ = $(subst .c,.o,$(SRC))
 
 NAME = philo_one
 
-$(NAME): ${OBJ} ${INCLUDE} ${SRC}
+$(NAME): ${OBJ} ${SRC}
 	gcc ${CFLAGS} -pthread -lm $(SRC) -o $(NAME)
 
 all: ${NAME}
