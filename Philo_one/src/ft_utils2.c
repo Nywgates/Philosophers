@@ -28,7 +28,7 @@ void		init_philo(t_data data, pthread_mutex_t *fork,
 		pthread_create(&id[i], NULL, begin, lst_struct[i]);
 		pthread_create(&id_mono[i], NULL, monitor, lst_struct[i]);
 		i++;
-		//usleep(10);
+		usleep(10);
 	}
 	i = 0;
 	while (i < data.number_philo)
