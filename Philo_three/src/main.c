@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:44:46 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/20 15:53:16 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/22 15:48:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			ft_eat(t_d_philo *philo)
 	gest_inf(1, philo, 0);
 	philo->m_eat++;
 	philo->last_eat = get_time(philo->data->time);
-	usleep(philo->data->time_to_eat * 1000);
+	ft_usleep(philo->data->time_to_eat * 1000);
 	sem_post(philo->data->eat[philo->id]);
 	sem_post(philo->fork);
 	sem_post(philo->fork);
@@ -76,7 +76,7 @@ void		*begin(void *arg)
 			gest_inf(3, philo, 0);
 			ft_eat(philo);
 			gest_inf(2, philo, 0);
-			usleep(philo->data->time_to_sleep * 1000);
+			ft_usleep(philo->data->time_to_sleep * 1000);
 		}
 		else if (philo->data->p_ate)
 			exit(0);

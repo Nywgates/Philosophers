@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:57:10 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/20 15:47:53 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/22 15:48:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,6 @@ int					ft_error(char *str, int i);
 long				get_time(long begin);
 void				*monitor(void *arg);
 void				*begin(void *arg);
+void				ft_usleep(long n);
+
 #endif
