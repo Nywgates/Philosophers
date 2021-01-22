@@ -46,6 +46,14 @@ int			ft_eat(t_d_philo *philo)
 	return (0);
 }
 
+void ft_usleep(float time) {
+	int i;
+
+	i = 0;
+	while (i < 1000)
+		usleep(time);
+}
+
 void		*begin(void *arg)
 {
 	t_d_philo *philo;
@@ -61,7 +69,7 @@ void		*begin(void *arg)
 		if (philo->eat)
 			break ;
 		gest_inf(2, philo, 0);
-		usleep(philo->data->time_to_sleep * 1000);
+		ft_usleep(philo->data->time_to_sleep);
 	}
 	return (NULL);
 }
