@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:45:33 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 15:33:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/25 10:08:20 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ void		init_philo(t_data data, sem_t *fork,
 		i++;
 		usleep(10);
 	}
+	data.id = id;
+	data.id_mono = id_mono;
 	i = 0;
 	while (i < data.number_philo)
 	{
 		pthread_join(id[i], NULL);
 		pthread_join(id_mono[i], NULL);
+		free(lst_struct[i]);
 		i++;
 	}
 }
@@ -73,4 +76,14 @@ void		ft_usleep(long n)
 			(current.tv_usec - start.tv_usec) > n)
 			break ;
 	}
+}
+
+void		ft_free(t_data *data)
+{
+	int i;
+
+	i = -1;
+	free(data->id);
+	free(data->id_mono);
+	exit(0);
 }
