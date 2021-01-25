@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:45:33 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 23:42:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/25 09:52:27 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void		init_philo(t_data data, pthread_mutex_t *fork,
-			pthread_t *id)
+void		create_thread(t_data data, pthread_mutex_t *fork,
+						pthread_t *id, t_d_philo **lst_struct)
 {
-	int			i;
-	t_d_philo	**lst_struct;
-	int			dead;
+	int i;
+	int dead;
 
 	dead = 0;
-	lst_struct = malloc(sizeof(t_d_philo **) * data.number_philo);
 	i = 0;
 	while (i < data.number_philo)
 	{
@@ -36,7 +34,18 @@ void		init_philo(t_data data, pthread_mutex_t *fork,
 		pthread_create(&id[i], NULL, begin, lst_struct[i]);
 		i += 2;
 	}
+	data.id = id;
 	monitor_test(lst_struct, data);
+}
+
+void		init_philo(t_data data, pthread_mutex_t *fork,
+			pthread_t *id)
+{
+	int			i;
+	t_d_philo	**lst_struct;
+
+	lst_struct = malloc(sizeof(t_d_philo **) * data.number_philo);
+	create_thread(data, fork, id, lst_struct);
 	i = 0;
 	while (i < data.number_philo)
 	{
@@ -57,12 +66,6 @@ void		init_mutex(pthread_mutex_t *fork, t_data data)
 		pthread_mutex_init(&data.mutex_eat[i], NULL);
 		i++;
 	}
-}
-
-int			ft_error(char *str, int i)
-{
-	ft_putstr_fd(str, 2);
-	return (i);
 }
 
 long		get_time(long begin)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:57:10 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 23:42:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/25 09:51:43 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct		s_data
 	long			time;
 	pthread_mutex_t std_out;
 	pthread_mutex_t *mutex_eat;
+	pthread_t		*id;
 }					t_data;
 
 typedef struct		s_d_philo
@@ -59,4 +60,6 @@ void				*monitor(void *arg);
 void				*begin(void *arg);
 void				ft_usleep(long n);
 void				*monitor_test(t_d_philo **philos, t_data data);
+void				ft_died(t_data data, t_d_philo *philo, int *dead);
+void				ft_free(t_data data, t_d_philo *philo);
 #endif

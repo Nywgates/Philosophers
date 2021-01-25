@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: laballea <laballea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 15:19:20 by laballea          #+#    #+#              #
-#    Updated: 2021/01/22 15:18:30 by user42           ###   ########.fr        #
+#    Updated: 2021/01/25 09:37:43 by laballea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = #-Wall -Wextra -Werror
 
-SRC = src/buf_utils.c src/ft_utils.c src/ft_utils2.c src/main.c
+SRC = src/buf_utils.c src/ft_utils.c src/ft_utils2.c src/main.c src/monitoring.c
 
 INCLUDE = src/Philosophers.h
 

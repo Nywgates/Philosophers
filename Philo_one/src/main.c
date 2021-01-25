@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:44:46 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 23:44:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/25 09:37:13 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,16 @@ void		parse(t_data *data, char **str, int argc)
 
 int			ft_eat(t_d_philo *philo)
 {
-	pthread_mutex_lock(&philo->fork[philo->id]);
+	int		fork_one;
+	int		fork_two;
+
+	fork_one = (philo->id % 2 == 0 ? philo->id : (philo->id + 1)
+	% philo->data->number_philo);
+	fork_two = (fork_one == philo->id ? (philo->id + 1)
+	% philo->data->number_philo : philo->id);
+	pthread_mutex_lock(&philo->fork[fork_one]);
 	gest_inf(0, philo, 0);
-	pthread_mutex_lock(&philo->fork[(philo->id + 1)
-	% philo->data->number_philo]);
+	pthread_mutex_lock(&philo->fork[fork_two]);
 	gest_inf(0, philo, 0);
 	gest_inf(1, philo, 0);
 	pthread_mutex_lock(&philo->data->mutex_eat[philo->id]);
@@ -40,9 +46,8 @@ int			ft_eat(t_d_philo *philo)
 	ft_usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(&philo->data->mutex_eat[philo->id]);
 	philo->m_eat++;
-	pthread_mutex_unlock(&philo->fork[(philo->id + 1)
-	% philo->data->number_philo]);
-	pthread_mutex_unlock(&philo->fork[philo->id]);
+	pthread_mutex_unlock(&philo->fork[fork_two]);
+	pthread_mutex_unlock(&philo->fork[fork_one]);
 	return (0);
 }
 
@@ -65,67 +70,6 @@ void		*begin(void *arg)
 	}
 	return (NULL);
 }
-
-void		*monitor_test(t_d_philo **philos, t_data data)
-{
-	int dead;
-	int i;
-	t_d_philo *philo;
-
-	dead = 0;
-	while (!dead)
-	{
-		i = 0;
-		while (i < data.number_philo)
-		{
-			philo = philos[i];
-			if (get_time(data.time) - philo->last_eat
-				> data.time_to_die)
-			{
-				pthread_mutex_lock(&data.mutex_eat[philo->id]);
-				gest_inf(4, philo, 1);
-				exit(0);
-				dead = 1;
-				pthread_mutex_unlock(&data.mutex_eat[philo->id]);
-			}
-			if (philo->m_eat == data.t_philo_must_eat)
-			{
-				philo->eat = 1;
-				gest_inf(5, philo, 0);
-				break ;
-			}
-		}
-		ft_usleep(50);
-	}
-	return (NULL);
-}
-
-
-/*void		*monitor(void *arg)
-{
-	t_d_philo *philo;
-
-	philo = (t_d_philo *)arg;
-	while (1)
-	{
-		if (get_time(philo->data->time) - philo->last_eat
-		> philo->data->time_to_die)
-		{
-			pthread_mutex_lock(&philo->data->mutex_eat[philo->id]);
-			gest_inf(4, philo, 1);
-			exit(0);
-			pthread_mutex_unlock(&philo->data->mutex_eat[philo->id]);
-		}
-		if (philo->m_eat == philo->data->t_philo_must_eat)
-		{
-			philo->eat = 1;
-			gest_inf(5, philo, 0);
-			break ;
-		}
-		usleep(50);
-	}
-	return (NULL);
-}*/
 
 int			main(int argc, char **argv)
 {
