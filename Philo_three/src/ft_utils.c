@@ -46,8 +46,6 @@ void		gest_inf(int index, t_d_philo *philo, int died)
 {
 	long time;
 
-	if (philo->data->died)
-		return ;
 	sem_wait(philo->data->std_out);
 	time = get_time(philo->data->time);
 	if (index == 0)

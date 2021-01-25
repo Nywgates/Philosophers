@@ -80,9 +80,6 @@ void		ft_usleep(long n)
 
 void		ft_free(t_data *data)
 {
-	int i;
-
-	i = -1;
 	free(data->id);
 	free(data->id_mono);
 	exit(0);

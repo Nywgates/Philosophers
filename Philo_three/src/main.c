@@ -60,10 +60,7 @@ void		*begin(void *arg)
 {
 	t_d_philo		*philo;
 	pthread_t		mono;
-	struct timespec tim;
 
-	tim.tv_sec = 1;
-	tim.tv_nsec = 500;
 	philo = (t_d_philo *)arg;
 	pthread_create(&mono, NULL, &monitor, philo);
 	philo->eat = 0;

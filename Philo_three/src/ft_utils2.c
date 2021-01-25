@@ -86,9 +86,6 @@ void		ft_usleep(long n)
 
 void		ft_free(t_data *data)
 {
-	int i;
-
-	i = -1;
 	free(data->eat);
 	exit(0);
 }
