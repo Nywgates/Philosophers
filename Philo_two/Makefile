@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: laballea <laballea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 15:19:20 by laballea          #+#    #+#              #
-#    Updated: 2021/01/22 15:02:39 by user42           ###   ########.fr        #
+#    Updated: 2021/01/25 13:32:28 by laballea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 SRC = src/buf_utils.c src/ft_utils.c src/ft_utils2.c src/main.c
 

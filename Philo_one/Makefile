@@ -6,11 +6,11 @@
 #    By: laballea <laballea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 15:19:20 by laballea          #+#    #+#              #
-#    Updated: 2021/01/25 09:37:43 by laballea         ###   ########.fr        #
+#    Updated: 2021/01/25 13:19:45 by laballea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 SRC = src/buf_utils.c src/ft_utils.c src/ft_utils2.c src/main.c src/monitoring.c
 
