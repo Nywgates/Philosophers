@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:45:33 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 15:32:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/25 10:15:50 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,13 @@ void		ft_usleep(long n)
 			break ;
 	}
 }
+
+void		ft_free(t_data *data)
+{
+	int i;
+
+	i = -1;
+	free(data->eat);
+	exit(0);
+}
+

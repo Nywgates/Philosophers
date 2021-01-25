@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:44:46 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/22 16:13:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/25 10:13:38 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void		*monitor(void *arg)
 		{
 			sem_wait(philo->data->eat[philo->id]);
 			gest_inf(4, philo, 1);
+			ft_free(philo->data);
 			sem_post(philo->data->eat[philo->id]);
-			exit(0);
 		}
 		if (philo->m_eat == philo->data->t_philo_must_eat)
 		{
