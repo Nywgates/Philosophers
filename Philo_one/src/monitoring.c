@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 09:36:48 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/25 09:52:59 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/25 13:10:10 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,18 @@ void		*monitor_test(t_d_philo **philos, t_data data)
 		{
 			philo = philos[i];
 			if (get_time(data.time) - philo->last_eat
-				> data.time_to_die)
+				> data.time_to_die && !philo->eat)
 				ft_died(data, philo, &dead);
-			if (philo->m_eat == data.t_philo_must_eat)
+			if (philo->m_eat == data.t_philo_must_eat && !philo->eat)
 			{
-				philo->eat = 1;
 				gest_inf(5, philo, 0);
+				philo->eat = 1;
+				philo->data->philos_eat++;
 				break ;
 			}
-			i++;
 		}
+		if (philo->data->philos_eat == data.number_philo)
+			ft_free(data, philo);
 		ft_usleep(50);
 	}
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:57:10 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/25 09:51:43 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/25 13:04:42 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct		s_data
 	pthread_mutex_t std_out;
 	pthread_mutex_t *mutex_eat;
 	pthread_t		*id;
+	int				philos_eat;
 }					t_data;
 
 typedef struct		s_d_philo

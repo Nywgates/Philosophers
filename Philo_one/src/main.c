@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:44:46 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/25 10:58:43 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/25 13:08:29 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void		parse(t_data *data, char **str, int argc)
 	data->time_to_eat = ft_atoi(str[3]);
 	data->time_to_sleep = ft_atoi(str[4]);
 	data->time = get_time(0);
+	data->philos_eat = 0;
 	data->mutex_eat = malloc(sizeof(pthread_mutex_t) * (data->number_philo));
 	pthread_mutex_init(&data->std_out, NULL);
 	if (argc == 6)
@@ -55,14 +56,13 @@ void		*begin(void *arg)
 
 	philo = (t_d_philo *)arg;
 	philo->eat = 0;
-	philo->m_eat = 0;
 	philo->last_eat = get_time(philo->data->time);
 	while (1)
 	{
 		gest_inf(3, philo, 0);
-		ft_eat(philo);
 		if (philo->eat)
 			break ;
+		ft_eat(philo);
 		gest_inf(2, philo, 0);
 		ft_usleep(philo->data->time_to_sleep * 1000);
 	}
@@ -82,6 +82,4 @@ int			main(int argc, char **argv)
 	fork = malloc(sizeof(pthread_mutex_t) * (data.number_philo));
 	init_mutex(fork, data);
 	init_philo(data, fork, id);
-	free(id);
-	free(fork);
 }

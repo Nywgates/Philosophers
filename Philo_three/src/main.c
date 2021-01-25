@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:44:46 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/25 10:13:38 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/25 11:29:01 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		*begin(void *arg)
 			ft_usleep(philo->data->time_to_sleep * 1000);
 		}
 		else if (philo->data->p_ate)
-			exit(0);
+			ft_free(philo->data);
 	}
 	exit(0);
 	return (NULL);
