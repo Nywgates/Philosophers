@@ -6,7 +6,7 @@
 /*   By: laballea <laballea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 08:45:33 by laballea          #+#    #+#             */
-/*   Updated: 2021/01/25 10:15:50 by laballea         ###   ########.fr       */
+/*   Updated: 2021/01/25 10:21:46 by laballea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,6 @@ void		init_philo(t_data data, sem_t *forks)
 	wait_child(lst_struct, data.number_philo);
 }
 
-int			ft_error(char *str, int i)
-{
-	ft_putstr_fd(str, 2);
-	return (i);
-}
-
 long		get_time(long begin)
 {
 	struct timeval	tv;
@@ -98,4 +92,3 @@ void		ft_free(t_data *data)
 	free(data->eat);
 	exit(0);
 }
-
